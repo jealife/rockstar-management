@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/sections/SectionHeading";
 import ServiceCard from "@/components/sections/ServiceCard";
 import Reveal from "@/components/motion/Reveal";
 import { getServices } from "@/lib/data/services";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Nos services — Rock'Star Management",
   description:
     "Management artistique, développement de carrière, structuration administrative, communication, promotion digitale, production et organisation d'événements.",
-};
+  path: "/services",
+});
 
 export default async function ServicesPage() {
   const services = await getServices();
@@ -18,7 +19,7 @@ export default async function ServicesPage() {
   return (
     <>
       <section>
-        <Container className="py-20 sm:py-28">
+        <Container className="pb-20 pt-36 sm:pb-28 sm:pt-44">
           <Reveal>
             <SectionHeading
               eyebrow="Accompagnement"

@@ -1,23 +1,24 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import Hero from "@/components/sections/Hero";
 import SectionHeading from "@/components/sections/SectionHeading";
 import KeyFigures from "@/components/sections/KeyFigures";
 import ArtistCard from "@/components/sections/ArtistCard";
+import ApercuCard from "@/components/sections/ApercuCard";
 import PartnerStrip from "@/components/sections/PartnerStrip";
 import Reveal from "@/components/motion/Reveal";
 import { getArtists } from "@/lib/data/artists";
 import { getPartners } from "@/lib/data/partners";
 import { keyFigures } from "@/lib/content/key-figures";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Rock'Star Management — La Maison des Artistes | Accompagnement artistique au Gabon",
   description:
     "Association culturelle à Libreville : management, structuration et promotion des artistes. Une scène, un studio de résidence et un lieu de 200 places.",
-};
+  path: "/",
+});
 
 const apercus = [
   {
@@ -82,19 +83,7 @@ export default async function HomePage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-3">
             {apercus.map((item, i) => (
               <Reveal key={item.href} delay={i * 0.08}>
-                <Link
-                  href={item.href}
-                  className="group flex h-full flex-col justify-between rounded-2xl border border-cream/15 p-7 transition-colors hover:border-brand-yellow hover:bg-brand-yellow/10"
-                >
-                  <div>
-                    <h3 className="font-display text-xl font-semibold text-cream">{item.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-cream/70">{item.description}</p>
-                  </div>
-                  <span className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-cream">
-                    {item.cta}
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
-                </Link>
+                <ApercuCard title={item.title} description={item.description} cta={item.cta} href={item.href} />
               </Reveal>
             ))}
           </div>

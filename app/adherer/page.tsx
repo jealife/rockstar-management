@@ -1,21 +1,22 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/sections/SectionHeading";
 import AdherentForm from "@/components/forms/AdherentForm";
 import Reveal from "@/components/motion/Reveal";
 import { membershipPricing } from "@/lib/content/site-info";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Adhérer — Rock'Star Management | Rejoindre la Maison des Artistes",
   description:
     "Rejoignez Rock'Star Management : accompagnement artistique, accès à l'espace et à la résidence. Adhésion 5 000 FCFA, cotisation 5 000 FCFA par trimestre.",
-};
+  path: "/adherer",
+});
 
 export default function AdhererPage() {
   return (
     <>
       <section className="border-b border-cream/10">
-        <Container className="py-20 sm:py-28">
+        <Container className="pb-20 pt-36 sm:pb-28 sm:pt-44">
           <Reveal>
             <SectionHeading
               eyebrow="Rejoindre"

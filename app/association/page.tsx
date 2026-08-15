@@ -1,20 +1,22 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/sections/SectionHeading";
 import ValueCard from "@/components/sections/ValueCard";
+import FounderSection from "@/components/sections/FounderSection";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import Reveal from "@/components/motion/Reveal";
 import { values } from "@/lib/content/values";
 import { realisations } from "@/lib/content/site-info";
 import { getFounder, getBureauMembers } from "@/lib/data/team";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "À propos — Rock'Star Management | Association culturelle à Libreville",
   description:
     "Découvrez Rock'Star Management : notre histoire, notre vision, nos valeurs et la fondatrice Rocksia Mbemba, au service des artistes gabonais et africains.",
-};
+  path: "/association",
+});
 
 export default async function AssociationPage() {
   const [founder, bureau] = await Promise.all([getFounder(), getBureauMembers()]);
@@ -22,7 +24,7 @@ export default async function AssociationPage() {
   return (
     <>
       <section className="border-b border-cream/10">
-        <Container className="py-20 sm:py-28">
+        <Container className="pb-20 pt-36 sm:pb-28 sm:pt-44">
           <Reveal>
             <SectionHeading eyebrow="L'association" title="Qui sommes-nous" className="max-w-3xl" />
             <div className="mt-8 max-w-3xl space-y-5 text-base leading-relaxed text-cream/70">
@@ -77,36 +79,7 @@ export default async function AssociationPage() {
         </Container>
       </section>
 
-      {founder ? (
-        <section className="border-b border-cream/10 bg-ink-soft">
-          <Container className="grid gap-10 py-20 sm:py-24 lg:grid-cols-[0.9fr_1.5fr] lg:items-start">
-            <Reveal>
-              {founder.photoUrl ? (
-                <Image
-                  src={founder.photoUrl}
-                  alt={founder.name}
-                  width={640}
-                  height={640}
-                  className="aspect-square w-full rounded-2xl object-cover"
-                />
-              ) : (
-                <MediaPlaceholder label="Photo à venir" />
-              )}
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-yellow">
-                {founder.roleTitle}
-              </p>
-              <p className="mt-6 text-base leading-relaxed text-cream/80">{founder.bio}</p>
-              {founder.quote ? (
-                <blockquote className="mt-8 border-l-2 border-brand-yellow pl-6 font-display text-xl italic leading-relaxed text-cream">
-                  « {founder.quote} »
-                </blockquote>
-              ) : null}
-            </Reveal>
-          </Container>
-        </section>
-      ) : null}
+      {founder ? <FounderSection founder={founder} /> : null}
 
       <section className="border-b border-cream/10">
         <Container className="py-20 sm:py-24">

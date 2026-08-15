@@ -1,22 +1,25 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/sections/SectionHeading";
 import ArtistCard from "@/components/sections/ArtistCard";
 import Reveal from "@/components/motion/Reveal";
 import { getArtists } from "@/lib/data/artists";
+import { artists } from "@/lib/content/artists";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Nos artistes — Rock'Star Management",
   description:
     "Orphée NYNY, Éloquent Grand B, PINDI, Nan's, Ndoki, Tina Minkoué : découvrez les artistes accompagnés par Rock'Star Management au Gabon.",
-};
+  path: "/artistes",
+  image: artists.find((a) => a.photoUrl)?.photoUrl ?? undefined,
+});
 
 export default async function ArtistesPage() {
   const artists = await getArtists();
 
   return (
     <section>
-      <Container className="py-20 sm:py-28">
+      <Container className="pb-20 pt-36 sm:pb-28 sm:pt-44">
         <Reveal>
           <SectionHeading
             eyebrow="Le roster"

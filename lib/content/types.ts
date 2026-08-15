@@ -36,6 +36,7 @@ export type CulturalEvent = {
   dateLabel: string | null; // human label used when dateStart is unknown, e.g. "2024–2026"
   venue: string | null;
   ticketUrl: string | null;
+  coverImageUrl: string | null;
   displayOrder: number;
 };
 

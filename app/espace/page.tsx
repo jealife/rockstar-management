@@ -1,22 +1,23 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/sections/SectionHeading";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import Reveal from "@/components/motion/Reveal";
 import { siteInfo } from "@/lib/content/site-info";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Notre espace culturel — Rock'Star Management | Scène & résidence à Libreville",
   description:
     "Un espace culturel à Libreville : scène, sonorisation, studio de résidence et lieu de 200 places pour la création, la répétition et la diffusion artistiques.",
-};
+  path: "/espace",
+});
 
 export default function EspacePage() {
   return (
     <>
       <section>
-        <Container className="grid gap-10 py-20 sm:py-28 lg:grid-cols-[1fr_1fr] lg:items-start">
+        <Container className="grid gap-10 pb-20 pt-36 sm:pb-28 sm:pt-44 lg:grid-cols-[1fr_1fr] lg:items-start">
           <Reveal>
             <SectionHeading eyebrow="Le lieu" title="Notre espace" />
             <div className="mt-8 space-y-5 text-base leading-relaxed text-cream/70">

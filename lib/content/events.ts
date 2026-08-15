@@ -14,6 +14,7 @@ export const events: CulturalEvent[] = [
     dateLabel: "2024–2026 · Toulouse",
     venue: "Toulouse, France",
     ticketUrl: null,
+    coverImageUrl: null,
     displayOrder: 1,
   },
   {
@@ -26,6 +27,7 @@ export const events: CulturalEvent[] = [
     dateLabel: null,
     venue: null,
     ticketUrl: null,
+    coverImageUrl: null,
     displayOrder: 2,
   },
   {
@@ -38,6 +40,7 @@ export const events: CulturalEvent[] = [
     dateLabel: null,
     venue: null,
     ticketUrl: null,
+    coverImageUrl: null,
     displayOrder: 3,
   },
   {
@@ -50,6 +53,7 @@ export const events: CulturalEvent[] = [
     dateLabel: null,
     venue: null,
     ticketUrl: null,
+    coverImageUrl: null,
     displayOrder: 4,
   },
   {
@@ -62,6 +66,7 @@ export const events: CulturalEvent[] = [
     dateLabel: null,
     venue: null,
     ticketUrl: null,
+    coverImageUrl: null,
     displayOrder: 5,
   },
   {
@@ -74,6 +79,7 @@ export const events: CulturalEvent[] = [
     dateLabel: null,
     venue: null,
     ticketUrl: null,
+    coverImageUrl: null,
     displayOrder: 6,
   },
 ];

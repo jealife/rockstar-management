@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/sections/SectionHeading";
 import ContactForm from "@/components/forms/ContactForm";
 import Reveal from "@/components/motion/Reveal";
 import { siteInfo } from "@/lib/content/site-info";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Contact — Rock'Star Management | Libreville, Gabon",
   description:
     "Contactez Rock'Star Management pour un accompagnement artistique, une réservation de l'espace ou un partenariat. Libreville, Gabon.",
-};
+  path: "/contact",
+});
 
 export default async function ContactPage({
   searchParams,
@@ -20,7 +21,7 @@ export default async function ContactPage({
 
   return (
     <section>
-      <Container className="grid gap-14 py-20 sm:py-28 lg:grid-cols-[1fr_1.3fr]">
+      <Container className="grid gap-14 pb-20 pt-36 sm:pb-28 sm:pt-44 lg:grid-cols-[1fr_1.3fr]">
         <Reveal>
           <SectionHeading
             eyebrow="Contact"

@@ -1,10 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import type { CulturalEvent } from "@/lib/content/types";
+import { useHoverPreview } from "@/components/motion/HoverPreview";
 
 export default function EventCard({ event }: { event: CulturalEvent }) {
+  const setPreview = useHoverPreview();
+
   return (
     <Link
       href={`/projets-evenements/${event.slug}`}
+      onMouseEnter={() => event.coverImageUrl && setPreview(event.coverImageUrl)}
+      onMouseLeave={() => setPreview(null)}
       className="flex items-start justify-between gap-4 border-b border-cream/10 px-3 py-5 transition-colors hover:bg-brand-yellow/10"
     >
       <div>

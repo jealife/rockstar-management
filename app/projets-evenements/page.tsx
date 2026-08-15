@@ -1,25 +1,27 @@
-import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/sections/SectionHeading";
 import ProjectCard from "@/components/sections/ProjectCard";
 import EventCard from "@/components/sections/EventCard";
 import Reveal from "@/components/motion/Reveal";
+import HoverPreviewProvider from "@/components/motion/HoverPreview";
 import { getProjects } from "@/lib/data/projects";
 import { getEvents } from "@/lib/data/events";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Projets & événements — Rock'Star Management",
   description:
     "PINDI Boungou Tour, Ngwali, Je T'Invoque, Lalala Ndoua, AFRICLAP, FIMI… Découvrez les projets et événements portés par Rock'Star Management.",
-};
+  path: "/projets-evenements",
+});
 
 export default async function ProjetsEvenementsPage() {
   const [projects, events] = await Promise.all([getProjects(), getEvents()]);
 
   return (
-    <>
+    <HoverPreviewProvider>
       <section>
-        <Container className="py-20 sm:py-28">
+        <Container className="pb-20 pt-36 sm:pb-28 sm:pt-44">
           <Reveal>
             <SectionHeading eyebrow="Créations" title="Projets artistiques" className="max-w-2xl" />
           </Reveal>
@@ -49,6 +51,6 @@ export default async function ProjetsEvenementsPage() {
           </Reveal>
         </Container>
       </section>
-    </>
+    </HoverPreviewProvider>
   );
 }

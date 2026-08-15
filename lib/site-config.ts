@@ -1,4 +1,3 @@
-// No confirmed domain yet — falls back to a placeholder so sitemap/robots
-// generate valid absolute URLs during dev. Set NEXT_PUBLIC_SITE_URL once a
+// Live Vercel URL for now — swap via NEXT_PUBLIC_SITE_URL once a custom
 // domain is bought.
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rockstar-management.com";
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rockstar-management.vercel.app";

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import Reveal from "@/components/motion/Reveal";
 import { getProjectBySlug, getProjects } from "@/lib/data/projects";
 import { getEventBySlug, getEvents } from "@/lib/data/events";
+import { buildMetadata } from "@/lib/seo";
 
 export async function generateStaticParams() {
   const [projects, events] = await Promise.all([getProjects(), getEvents()]);
@@ -23,10 +25,12 @@ export async function generateMetadata({
   const item = project ?? event;
   if (!item) return {};
 
-  return {
+  return buildMetadata({
     title: `${item.title} — Rock'Star Management`,
     description: item.description,
-  };
+    path: `/projets-evenements/${item.slug}`,
+    image: item.coverImageUrl ?? undefined,
+  });
 }
 
 export default async function ProjetEvenementDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -62,9 +66,19 @@ export default async function ProjetEvenementDetailPage({ params }: { params: Pr
         />
       ) : null}
       <section>
-        <Container className="grid gap-10 py-20 sm:py-28 lg:grid-cols-[1fr_1.2fr] lg:items-start">
+        <Container className="grid gap-10 pb-20 pt-36 sm:pb-28 sm:pt-44 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <Reveal>
-            <MediaPlaceholder label="Visuel à venir" />
+            {item.coverImageUrl ? (
+              <Image
+                src={item.coverImageUrl}
+                alt={item.title}
+                width={640}
+                height={640}
+                className="aspect-square w-full rounded-2xl object-cover"
+              />
+            ) : (
+              <MediaPlaceholder label="Visuel à venir" />
+            )}
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cream/50">{kicker}</p>

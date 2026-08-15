@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/motion/CustomCursor";
 import { siteUrl } from "@/lib/site-config";
+import { buildMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const clashDisplay = localFont({
@@ -30,9 +31,12 @@ const generalSans = localFont({
 // so there's no title template here, just a default for any untitled route.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Rock'Star Management — La Maison des Artistes",
-  description:
-    "Association culturelle à Libreville : management, structuration et promotion des artistes gabonais et africains.",
+  ...buildMetadata({
+    title: "Rock'Star Management — La Maison des Artistes",
+    description:
+      "Association culturelle à Libreville : management, structuration et promotion des artistes gabonais et africains.",
+    path: "/",
+  }),
 };
 
 const organizationJsonLd = {
