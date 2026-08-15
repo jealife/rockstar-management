@@ -24,7 +24,18 @@ export default function Hero() {
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       />
 
-      <Container className="relative grid gap-10 py-20 sm:py-28 lg:grid-cols-[1.3fr_1fr] lg:items-end">
+      {/* Signature star mark, large — the hero's centerpiece visual */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 top-1/2 hidden -translate-y-1/2 sm:block lg:-right-16"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        style={{ filter: "drop-shadow(0 0 80px rgba(255, 198, 0, 0.35))" }}
+      >
+        <StarMark className="h-[24rem] w-[24rem] lg:h-[34rem] lg:w-[34rem]" />
+      </motion.div>
+
+      <Container className="relative grid gap-10 pb-20 pt-36 sm:pb-28 sm:pt-44 lg:grid-cols-[1.3fr_1fr] lg:items-end">
         <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
           <motion.div
             variants={staggerItem}

@@ -23,9 +23,9 @@ export default async function ProjetsEvenementsPage() {
           <Reveal>
             <SectionHeading eyebrow="Créations" title="Projets artistiques" className="max-w-2xl" />
           </Reveal>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12">
             {projects.map((project, i) => (
-              <Reveal key={project.slug} delay={(i % 3) * 0.08}>
+              <Reveal key={project.slug} delay={i * 0.05}>
                 <ProjectCard project={project} />
               </Reveal>
             ))}

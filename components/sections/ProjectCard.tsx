@@ -14,19 +14,18 @@ export default function ProjectCard({ project }: { project: Project }) {
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       href={`/projets-evenements/${project.slug}`}
-      className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-cream/10 bg-ink-soft p-6 transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-brand-yellow"
+      className="group relative flex flex-col gap-4 overflow-hidden border-b border-cream/10 px-3 py-8 transition-colors hover:bg-brand-yellow/10 sm:flex-row sm:items-center sm:justify-between sm:gap-10"
     >
-      <div
-        className="pointer-events-none absolute inset-0 transition-opacity duration-300"
-        style={glowStyle}
-      />
+      <div className="pointer-events-none absolute inset-0 transition-opacity duration-300" style={glowStyle} />
       <div className="relative">
-        <h3 className="font-display text-xl font-semibold text-cream">{project.title}</h3>
-        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-cream/70">{project.description}</p>
+        <h3 className="font-display text-2xl font-semibold text-cream transition-colors group-hover:text-brand-yellow sm:text-3xl">
+          {project.title}
+        </h3>
+        <p className="mt-2 max-w-xl text-sm leading-relaxed text-cream/60">{project.description}</p>
       </div>
-      <span className="relative mt-6 inline-flex items-center gap-1 text-sm font-semibold text-cream">
-        Découvrir le projet
-        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      <span className="relative flex shrink-0 items-center gap-2 text-sm font-semibold text-cream/50 transition-colors group-hover:text-brand-yellow">
+        Découvrir
+        <ArrowUpRight className="h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
       </span>
     </Link>
   );

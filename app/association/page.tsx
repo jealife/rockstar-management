@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/sections/SectionHeading";
@@ -69,7 +70,7 @@ export default async function AssociationPage() {
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {values.map((value, i) => (
               <Reveal key={value.title} delay={i * 0.06}>
-                <ValueCard value={value} />
+                <ValueCard value={value} index={i + 1} />
               </Reveal>
             ))}
           </div>
@@ -80,7 +81,17 @@ export default async function AssociationPage() {
         <section className="border-b border-cream/10 bg-ink-soft">
           <Container className="grid gap-10 py-20 sm:py-24 lg:grid-cols-[0.9fr_1.5fr] lg:items-start">
             <Reveal>
-              <MediaPlaceholder label="Photo à venir" />
+              {founder.photoUrl ? (
+                <Image
+                  src={founder.photoUrl}
+                  alt={founder.name}
+                  width={640}
+                  height={640}
+                  className="aspect-square w-full rounded-2xl object-cover"
+                />
+              ) : (
+                <MediaPlaceholder label="Photo à venir" />
+              )}
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-yellow">
@@ -108,10 +119,22 @@ export default async function AssociationPage() {
                 </p>
                 <div className="mt-6 grid gap-6 sm:grid-cols-3">
                   {bureau.map((member) => (
-                    <div key={member.name} className="rounded-2xl border border-cream/10 bg-ink-soft p-6">
-                      <MediaPlaceholder className="aspect-[4/3]" />
-                      <h3 className="mt-4 font-display text-lg font-semibold text-cream">{member.name}</h3>
-                      <p className="text-sm text-cream/60">{member.roleTitle}</p>
+                    <div key={member.name} className="relative aspect-square w-full overflow-hidden rounded-2xl">
+                      {member.photoUrl ? (
+                        <Image
+                          src={member.photoUrl}
+                          alt={member.name}
+                          width={480}
+                          height={480}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <MediaPlaceholder className="h-full" />
+                      )}
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/70 to-transparent p-4 pt-12">
+                        <h3 className="font-display text-base font-semibold text-cream">{member.name}</h3>
+                        <p className="text-xs text-cream/70">{member.roleTitle}</p>
+                      </div>
                     </div>
                   ))}
                 </div>

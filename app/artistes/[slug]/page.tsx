@@ -93,7 +93,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
           <Container className="py-20 sm:py-24">
             <Reveal>
               <h2 className="font-display text-2xl font-semibold text-cream">Projets</h2>
-              <div className="mt-8 grid gap-6 sm:grid-cols-2">
+              <div className="mt-4">
                 {relatedProjects.map((project) => (
                   <ProjectCard key={project.slug} project={project} />
                 ))}
