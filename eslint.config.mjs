@@ -13,6 +13,13 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // Content is French copy transcribed from the client's kit — full of
+      // straight apostrophes (l'espace, d'accompagner…) in JSX text nodes.
+      "react/no-unescaped-entities": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

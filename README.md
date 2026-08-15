@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rock'Star Management — site web
 
-## Getting Started
-
-First, run the development server:
+Next.js (App Router) + TypeScript + Tailwind v4. Contenu transcrit du kit fourni par le client.
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## État actuel : phase 1 (contenu statique)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Le contenu (artistes, projets, événements, services, équipe, partenaires) vit dans
+[`lib/content/`](lib/content) et est servi via [`lib/data/`](lib/data). Les deux formulaires
+(contact, adhésion) valident et acquittent (`app/api/contact`, `app/api/adherer`) mais
+n'écrivent nulle part encore — il n'y a pas de projet Supabase.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Phase 2 : brancher Supabase
 
-## Learn More
+1. Créer un projet Supabase dédié (pas de réutilisation d'un projet existant de l'agence).
+2. Appliquer [`supabase/migrations/0001_init.sql`](supabase/migrations/0001_init.sql), puis
+   [`supabase/seed.sql`](supabase/seed.sql) (reproduit le contenu déjà en dur, avec les mêmes
+   slugs — bascule mécanique).
+3. Renseigner les env vars : `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`,
+   `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `CONTACT_NOTIFICATION_EMAIL`,
+   `NEXT_PUBLIC_SITE_URL`.
+4. Remplacer le corps des fonctions dans `lib/data/*.ts` par des requêtes Supabase (même
+   signature, les pages ne changent pas) et générer `lib/database.types.ts` via
+   `supabase gen types typescript`.
+5. Dans `app/api/contact/route.ts` et `app/api/adherer/route.ts`, insérer via le client
+   Supabase anon (la policy insert-only suffit) puis envoyer une notification par e-mail
+   via Resend.
 
-To learn more about Next.js, take a look at the following resources:
+## Contenu manquant à obtenir avant lancement
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Voir les notes dans `lib/content/site-info.ts` et `lib/content/team.ts` — téléphone/e-mail de
+contact, membres du bureau, montants de cotisation à confirmer, photos des artistes, plan
+d'accès et galerie de l'espace, rapport d'activités (PDF).

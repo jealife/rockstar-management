@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* Strictly two brand colours — black and yellow. `cream` is not a third
+     colour, it's the off-white needed as text/paper on the black surface,
+     the same way a yellow/black brand still needs a neutral to read text. */
+  --brand-yellow: #ffc600;
+  --brand-gold-start: #f9f295;
+  --brand-gold-end: #e0aa3e;
+  --ink: #0e0b01;
+  --ink-soft: #1b160d;
+  --cream: #f5f1e4;
+  --muted: #9a8f78;
+
+  --background: var(--ink);
+  --foreground: var(--cream);
 }
 
 @theme inline {
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-gold-start: var(--brand-gold-start);
+  --color-brand-gold-end: var(--brand-gold-end);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-cream: var(--cream);
+  --color-muted: var(--muted);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
+  position: relative;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Barely-there grain — adds texture to flat colour fields without reading
+   as a "gimmick". SVG fractal noise, no image request. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--brand-yellow);
+  color: var(--ink);
+}
+
+.text-gradient-gold {
+  background-image: linear-gradient(135deg, var(--brand-gold-start), var(--brand-gold-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation-name: marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
+  }
 }
