@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Container from "@/components/ui/Container";
-import Button from "@/components/ui/Button";
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import ArtistHero from "@/components/sections/ArtistHero";
+import ArtistCard from "@/components/sections/ArtistCard";
 import ProjectCard from "@/components/sections/ProjectCard";
 import Reveal from "@/components/motion/Reveal";
 import HoverPreviewProvider from "@/components/motion/HoverPreview";
@@ -39,7 +39,11 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
   const artist = await getArtistBySlug(slug);
   if (!artist) notFound();
 
-  const relatedProjects = await getProjectsByArtistSlug(artist.slug);
+  const [relatedProjects, allArtists] = await Promise.all([
+    getProjectsByArtistSlug(artist.slug),
+    getArtists(),
+  ]);
+  const otherArtists = allArtists.filter((a) => a.slug !== artist.slug).slice(0, 3);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -51,49 +55,37 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <section>
-        <Container className="grid gap-10 pb-20 pt-36 sm:pb-28 sm:pt-44 lg:grid-cols-[0.9fr_1.4fr] lg:items-start">
-          <Reveal>
-            {artist.photoUrl ? (
-              <Image
-                src={artist.photoUrl}
-                alt={artist.name}
-                width={640}
-                height={640}
-                priority
-                className="aspect-square w-full rounded-2xl object-cover"
-              />
-            ) : (
-              <MediaPlaceholder label="Photo à venir" />
-            )}
-          </Reveal>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-          <Reveal delay={0.1}>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cream/50">{artist.discipline}</p>
-            <h1 className="mt-2 font-display text-4xl font-semibold text-cream sm:text-5xl">{artist.name}</h1>
-            <p className="mt-6 text-base leading-relaxed text-cream/70">{artist.bio}</p>
-            {artist.artisticUniverse ? (
-              <p className="mt-4 text-base leading-relaxed text-cream/70">{artist.artisticUniverse}</p>
-            ) : null}
+      <ArtistHero artist={artist} />
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/contact?objet=booking" variant="primary">
-                Contact / booking
-              </Button>
-              <Button href="/artistes" variant="outline">
-                Retour aux artistes
-              </Button>
+      {artist.gallery.length > 0 ? (
+        <section className="border-b border-cream/10 bg-ink-soft">
+          <Container className="py-20 sm:py-24">
+            <Reveal>
+              <h2 className="font-display text-2xl font-semibold text-cream">Galerie</h2>
+            </Reveal>
+            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
+              {artist.gallery.map((src, i) => (
+                <Reveal key={src} delay={i * 0.06}>
+                  <div className="relative aspect-square overflow-hidden rounded-xl">
+                    <Image
+                      src={src}
+                      alt={`${artist.name} — photo ${i + 1}`}
+                      fill
+                      sizes="(min-width: 640px) 33vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                </Reveal>
+              ))}
             </div>
-          </Reveal>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      ) : null}
 
       {relatedProjects.length > 0 ? (
-        <section className="border-t border-cream/10 bg-ink-soft">
+        <section className="border-b border-cream/10">
           <Container className="py-20 sm:py-24">
             <Reveal>
               <h2 className="font-display text-2xl font-semibold text-cream">Projets</h2>
@@ -109,13 +101,43 @@ export default async function ArtistPage({ params }: { params: Promise<{ slug: s
         </section>
       ) : null}
 
-      <section className="border-t border-cream/10">
-        <Container className="py-12 text-sm text-cream/50">
-          <Link href="/artistes" className="hover:underline">
-            ← Tous les artistes
-          </Link>
-        </Container>
-      </section>
+      {otherArtists.length > 0 ? (
+        <section>
+          <Container className="py-20 sm:py-24">
+            <Reveal>
+              <div className="flex items-end justify-between gap-6">
+                <h2 className="font-display text-2xl font-semibold text-cream">Découvrir d&apos;autres artistes</h2>
+                <Link
+                  href="/artistes"
+                  className="hidden text-sm font-semibold text-cream/70 transition-colors hover:text-brand-yellow sm:block"
+                >
+                  Voir tous les artistes
+                </Link>
+              </div>
+            </Reveal>
+            <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
+              {otherArtists.map((a, i) => (
+                <Reveal key={a.slug} delay={i * 0.06}>
+                  <ArtistCard artist={a} />
+                </Reveal>
+              ))}
+            </div>
+            <div className="mt-8 sm:hidden">
+              <Link href="/artistes" className="text-sm font-semibold text-cream/70 hover:text-brand-yellow">
+                ← Voir tous les artistes
+              </Link>
+            </div>
+          </Container>
+        </section>
+      ) : (
+        <section className="border-t border-cream/10">
+          <Container className="py-12 text-sm text-cream/50">
+            <Link href="/artistes" className="hover:underline">
+              ← Tous les artistes
+            </Link>
+          </Container>
+        </section>
+      )}
     </>
   );
 }
