@@ -26,7 +26,7 @@ export default async function ContactPage({
           <SectionHeading
             eyebrow="Contact"
             title="Parlons de votre projet"
-            description="Une question, un projet, une envie de collaborer ? Écrivez-nous — nous serons ravis d'échanger avec vous."
+            description="Une question, un projet, une envie de collaborer ? Écrivez-nous! Nous serons ravis d'échanger avec vous."
           />
 
           <dl className="mt-10 space-y-6">
