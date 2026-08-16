@@ -5,7 +5,7 @@ export const siteInfo = {
   address: "Bas de Gué-Gué, derrière l'école publique — Libreville, Gabon",
   phone: "+241 04 84 33 82" as string | null,
   // Format international sans le 0 initial, pour les liens wa.me / tel:.
-  whatsappNumber: "2414843382",
+  whatsappNumber: "24104843382",
   email: null as string | null,
   socialLinks: {} as Record<string, string>,
   venueCapacity: "Environ 200 places",
