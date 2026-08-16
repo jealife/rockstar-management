@@ -14,7 +14,7 @@ import { keyFigures } from "@/lib/content/key-figures";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Rock'Star Management — La Maison des Artistes | Accompagnement artistique au Gabon",
+  title: "Rock'Star Management - La Maison des Artistes | Accompagnement artistique au Gabon",
   description:
     "Association culturelle à Libreville : management, structuration et promotion des artistes. Une scène, un studio de résidence et un lieu de 200 places.",
   path: "/",

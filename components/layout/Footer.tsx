@@ -60,7 +60,7 @@ export default function Footer() {
       <Reveal delay={0.1}>
         <p
           aria-hidden="true"
-          className="select-none overflow-hidden whitespace-nowrap px-4 pb-4 text-center font-display text-[18vw] font-semibold leading-none text-ink/90 sm:text-[15vw]"
+          className="text-wordmark-shimmer select-none overflow-hidden whitespace-nowrap px-4 pb-4 text-center font-display text-[18vw] font-semibold leading-none sm:text-[15vw]"
         >
           Rock'Star
         </p>

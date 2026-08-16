@@ -3,7 +3,7 @@ import { siteUrl } from "./site-config";
 
 // Site-wide fallback OG image — the founder's portrait, until dedicated
 // visuals exist per page (artist/project pages pass their own via `image`).
-export const DEFAULT_OG_IMAGE = "/team/rocksia-mbemba.avif";
+export const DEFAULT_OG_IMAGE = "/rocksia-mbemba.avif";
 
 export function buildMetadata({
   title,
