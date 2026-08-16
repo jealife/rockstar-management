@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/motion/CustomCursor";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { siteUrl } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
 import "./globals.css";
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <WhatsAppButton />
         <Analytics />
         <SpeedInsights />
       </body>

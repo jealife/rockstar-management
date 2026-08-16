@@ -1,9 +1,11 @@
-// Coordonnées connues via le kit de contenu. `phone`, `email` et
-// `socialLinks` sont explicitement marqués `[à compléter]` dans le kit — on
-// ne les invente pas, l'UI n'affiche que ce qui est renseigné ici.
+// Coordonnées connues via le kit de contenu. `email` et `socialLinks` sont
+// toujours `[à compléter]` — on ne les invente pas, l'UI n'affiche que ce
+// qui est renseigné ici.
 export const siteInfo = {
   address: "Bas de Gué-Gué, derrière l'école publique — Libreville, Gabon",
-  phone: null as string | null,
+  phone: "+241 04 84 33 82" as string | null,
+  // Format international sans le 0 initial, pour les liens wa.me / tel:.
+  whatsappNumber: "2414843382",
   email: null as string | null,
   socialLinks: {} as Record<string, string>,
   venueCapacity: "Environ 200 places",
